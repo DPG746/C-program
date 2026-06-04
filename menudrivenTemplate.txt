@@ -850,3 +850,609 @@ int main()
 
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+================================================================================
+        LAB ASSESSMENT - C++ PROGRAMS (Assignments 2 to 6)
+================================================================================
+Topics: Static Members, Conditions, Loops, Arrays, Classes & Objects,
+        Functions, Function Overloading, Inheritance
+--------------------------------------------------------------------------------
+
+
+================================================================================
+ASSIGNMENT 2 - Menu-Driven Array Operations
+================================================================================
+Concepts: Arrays, Loops, Conditions, Functions
+--------------------------------------------------------------------------------
+
+#include<iostream>
+using namespace std;
+
+int arr[100], n;
+
+void insertElements()
+{
+    cout << "Enter number of elements: ";
+    cin >> n;
+    cout << "Enter " << n << " elements: ";
+    for(int i = 0; i < n; i++)
+        cin >> arr[i];
+    cout << "Elements inserted successfully." << endl;
+}
+
+void displayElements()
+{
+    cout << "Elements: ";
+    for(int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+    cout << endl;
+}
+
+void findSum()
+{
+    int sum = 0;
+    for(int i = 0; i < n; i++)
+        sum += arr[i];
+    cout << "Sum = " << sum << endl;
+}
+
+void findLargest()
+{
+    int large = arr[0];
+    for(int i = 1; i < n; i++)
+        if(arr[i] > large)
+            large = arr[i];
+    cout << "Largest Element = " << large << endl;
+}
+
+void searchElement()
+{
+    int key, found = 0;
+    cout << "Enter element to search: ";
+    cin >> key;
+    for(int i = 0; i < n; i++)
+    {
+        if(arr[i] == key)
+        {
+            cout << "Element found at index " << i << endl;
+            found = 1;
+            break;
+        }
+    }
+    if(!found)
+        cout << "Element not found." << endl;
+}
+
+int main()
+{
+    int choice;
+    do
+    {
+        cout << "\n--- Array Operations Menu ---" << endl;
+        cout << "1. Insert Elements" << endl;
+        cout << "2. Display Elements" << endl;
+        cout << "3. Find Sum" << endl;
+        cout << "4. Find Largest" << endl;
+        cout << "5. Search Element" << endl;
+        cout << "6. Exit" << endl;
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch(choice)
+        {
+            case 1: insertElements(); break;
+            case 2: displayElements(); break;
+            case 3: findSum(); break;
+            case 4: findLargest(); break;
+            case 5: searchElement(); break;
+            case 6: cout << "Exiting..." << endl; break;
+            default: cout << "Invalid choice!" << endl;
+        }
+    } while(choice != 6);
+
+    return 0;
+}
+
+
+================================================================================
+ASSIGNMENT 3 - Student Management System (Class & Object)
+================================================================================
+Concepts: Class, Object, Functions, Arrays of Objects
+--------------------------------------------------------------------------------
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+class Student
+{
+public:
+    string name;
+    int rollno;
+    float marks;
+
+    void getDetails()
+    {
+        cout << "Enter Name: ";
+        cin >> name;
+        cout << "Enter Roll No: ";
+        cin >> rollno;
+        cout << "Enter Marks: ";
+        cin >> marks;
+    }
+
+    void displayDetails()
+    {
+        cout << "Name: " << name
+             << " | Roll No: " << rollno
+             << " | Marks: " << marks << endl;
+    }
+};
+
+Student students[50];
+int count = 0;
+
+void addStudent()
+{
+    students[count].getDetails();
+    count++;
+    cout << "Student added successfully." << endl;
+}
+
+void displayAll()
+{
+    if(count == 0)
+    {
+        cout << "No students found." << endl;
+        return;
+    }
+    for(int i = 0; i < count; i++)
+        students[i].displayDetails();
+}
+
+void searchStudent()
+{
+    int roll;
+    cout << "Enter Roll No to search: ";
+    cin >> roll;
+    for(int i = 0; i < count; i++)
+    {
+        if(students[i].rollno == roll)
+        {
+            students[i].displayDetails();
+            return;
+        }
+    }
+    cout << "Student not found." << endl;
+}
+
+int main()
+{
+    int choice;
+    do
+    {
+        cout << "\n--- Student Management System ---" << endl;
+        cout << "1. Add Student" << endl;
+        cout << "2. Display All Students" << endl;
+        cout << "3. Search Student" << endl;
+        cout << "4. Exit" << endl;
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch(choice)
+        {
+            case 1: addStudent(); break;
+            case 2: displayAll(); break;
+            case 3: searchStudent(); break;
+            case 4: cout << "Exiting..." << endl; break;
+            default: cout << "Invalid choice!" << endl;
+        }
+    } while(choice != 4);
+
+    return 0;
+}
+
+
+================================================================================
+ASSIGNMENT 4 - Employee Management Using Static Member
+================================================================================
+Concepts: Static Variable, Constructor, Class & Object
+--------------------------------------------------------------------------------
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+class Employee
+{
+    string name;
+    int empId;
+    float salary;
+
+    static int empCount;
+
+public:
+    Employee()
+    {
+        empCount++;
+    }
+
+    void getDetails()
+    {
+        cout << "Enter Employee Name: ";
+        cin >> name;
+        cout << "Enter Employee ID: ";
+        cin >> empId;
+        cout << "Enter Salary: ";
+        cin >> salary;
+    }
+
+    void displayDetails()
+    {
+        cout << "Name: " << name
+             << " | ID: " << empId
+             << " | Salary: " << salary << endl;
+    }
+
+    static void displayCount()
+    {
+        cout << "Total Employees Created: " << empCount << endl;
+    }
+};
+
+int Employee::empCount = 0;
+
+Employee employees[50];
+int count = 0;
+
+int main()
+{
+    int choice;
+    do
+    {
+        cout << "\n--- Employee Management System ---" << endl;
+        cout << "1. Create Employee" << endl;
+        cout << "2. Display All Employees" << endl;
+        cout << "3. Display Employee Count" << endl;
+        cout << "4. Exit" << endl;
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch(choice)
+        {
+            case 1:
+                employees[count].getDetails();
+                count++;
+                cout << "Employee added." << endl;
+                break;
+            case 2:
+                for(int i = 0; i < count; i++)
+                    employees[i].displayDetails();
+                break;
+            case 3:
+                Employee::displayCount();
+                break;
+            case 4:
+                cout << "Exiting..." << endl;
+                break;
+            default:
+                cout << "Invalid choice!" << endl;
+        }
+    } while(choice != 4);
+
+    return 0;
+}
+
+
+================================================================================
+ASSIGNMENT 5 - Function Overloading Demo
+================================================================================
+Concepts: Function Overloading
+--------------------------------------------------------------------------------
+
+#include<iostream>
+using namespace std;
+
+int add(int a, int b)
+{
+    return a + b;
+}
+
+float add(float a, float b)
+{
+    return a + b;
+}
+
+int add(int a, int b, int c)
+{
+    return a + b + c;
+}
+
+int main()
+{
+    int choice;
+    do
+    {
+        cout << "\n--- Function Overloading Menu ---" << endl;
+        cout << "1. Add Two Integers" << endl;
+        cout << "2. Add Two Floats" << endl;
+        cout << "3. Add Three Integers" << endl;
+        cout << "4. Exit" << endl;
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch(choice)
+        {
+            case 1:
+            {
+                int a, b;
+                cout << "Enter two integers: ";
+                cin >> a >> b;
+                cout << "Sum = " << add(a, b) << endl;
+                break;
+            }
+            case 2:
+            {
+                float a, b;
+                cout << "Enter two floats: ";
+                cin >> a >> b;
+                cout << "Sum = " << add(a, b) << endl;
+                break;
+            }
+            case 3:
+            {
+                int a, b, c;
+                cout << "Enter three integers: ";
+                cin >> a >> b >> c;
+                cout << "Sum = " << add(a, b, c) << endl;
+                break;
+            }
+            case 4:
+                cout << "Exiting..." << endl;
+                break;
+            default:
+                cout << "Invalid choice!" << endl;
+        }
+    } while(choice != 4);
+
+    return 0;
+}
+
+
+================================================================================
+ASSIGNMENT 6 - Inheritance-Based Student/Person System
+================================================================================
+Concepts: Inheritance, Base Class, Derived Class
+--------------------------------------------------------------------------------
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+class Person
+{
+protected:
+    string name;
+    int age;
+
+public:
+    void getPersonDetails()
+    {
+        cout << "Enter Name: ";
+        cin >> name;
+        cout << "Enter Age: ";
+        cin >> age;
+    }
+
+    void displayPersonDetails()
+    {
+        cout << "Name: " << name << " | Age: " << age;
+    }
+};
+
+class Student : public Person
+{
+    int rollno;
+    float marks;
+
+public:
+    void getStudentDetails()
+    {
+        getPersonDetails();
+        cout << "Enter Roll No: ";
+        cin >> rollno;
+        cout << "Enter Marks: ";
+        cin >> marks;
+    }
+
+    void displayStudentDetails()
+    {
+        displayPersonDetails();
+        cout << " | Roll No: " << rollno
+             << " | Marks: " << marks << endl;
+    }
+};
+
+Student students[50];
+int count = 0;
+
+int main()
+{
+    int choice;
+    do
+    {
+        cout << "\n--- Inheritance-Based Student System ---" << endl;
+        cout << "1. Enter Student Details" << endl;
+        cout << "2. Display All Student Details" << endl;
+        cout << "3. Exit" << endl;
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch(choice)
+        {
+            case 1:
+                students[count].getStudentDetails();
+                count++;
+                cout << "Student added successfully." << endl;
+                break;
+            case 2:
+                if(count == 0)
+                    cout << "No records found." << endl;
+                else
+                    for(int i = 0; i < count; i++)
+                        students[i].displayStudentDetails();
+                break;
+            case 3:
+                cout << "Exiting..." << endl;
+                break;
+            default:
+                cout << "Invalid choice!" << endl;
+        }
+    } while(choice != 3);
+
+    return 0;
+}
+
+
+================================================================================
+BONUS - All-in-One: Student Management System (Covers Almost All Topics)
+================================================================================
+Concepts: Class, Object, Static Member, Arrays, Functions, Loops, Conditions
+--------------------------------------------------------------------------------
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+class Student
+{
+    string name;
+    int rollno;
+    float marks;
+
+    static int studentCount;
+
+public:
+    Student()
+    {
+        studentCount++;
+    }
+
+    void getDetails()
+    {
+        cout << "Enter Name: ";
+        cin >> name;
+        cout << "Enter Roll No: ";
+        cin >> rollno;
+        cout << "Enter Marks: ";
+        cin >> marks;
+    }
+
+    void displayDetails()
+    {
+        cout << "Name: " << name
+             << " | Roll No: " << rollno
+             << " | Marks: " << marks;
+        if(marks >= 75)
+            cout << " | Grade: A";
+        else if(marks >= 50)
+            cout << " | Grade: B";
+        else
+            cout << " | Grade: F";
+        cout << endl;
+    }
+
+    int getRollNo() { return rollno; }
+
+    static void displayCount()
+    {
+        cout << "Total Students: " << studentCount << endl;
+    }
+};
+
+int Student::studentCount = 0;
+
+Student students[50];
+int total = 0;
+
+int main()
+{
+    int choice;
+    do
+    {
+        cout << "\n=== Student Management System ===" << endl;
+        cout << "1. Add Student" << endl;
+        cout << "2. Display All Students" << endl;
+        cout << "3. Count Students (Static)" << endl;
+        cout << "4. Search Student by Roll No" << endl;
+        cout << "5. Exit" << endl;
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch(choice)
+        {
+            case 1:
+                students[total].getDetails();
+                total++;
+                cout << "Student added." << endl;
+                break;
+            case 2:
+                if(total == 0)
+                    cout << "No records." << endl;
+                else
+                    for(int i = 0; i < total; i++)
+                        students[i].displayDetails();
+                break;
+            case 3:
+                Student::displayCount();
+                break;
+            case 4:
+            {
+                int roll;
+                bool found = false;
+                cout << "Enter Roll No: ";
+                cin >> roll;
+                for(int i = 0; i < total; i++)
+                {
+                    if(students[i].getRollNo() == roll)
+                    {
+                        students[i].displayDetails();
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found)
+                    cout << "Student not found." << endl;
+                break;
+            }
+            case 5:
+                cout << "Exiting..." << endl;
+                break;
+            default:
+                cout << "Invalid choice!" << endl;
+        }
+    } while(choice != 5);
+
+    return 0;
+}
+
+================================================================================
+END OF FILE
+================================================================================
+
