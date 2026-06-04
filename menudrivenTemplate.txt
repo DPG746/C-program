@@ -1,0 +1,356 @@
+#include <iostream>
+using namespace std;
+
+// Function Definitions
+int add(int a, int b)
+{
+    return a + b;
+}
+
+int subtract(int a, int b)
+{
+    return a - b;
+}
+
+int multiply(int a, int b)
+{
+    return a * b;
+}
+
+float divide(int a, int b)
+{
+    return (float)a / b;
+}
+
+int main()
+{
+    int choice;
+    int num1, num2;
+
+    do
+    {
+        cout << "\n===== CALCULATOR =====";
+        cout << "\n1. Addition";
+        cout << "\n2. Subtraction";
+        cout << "\n3. Multiplication";
+        cout << "\n4. Division";
+        cout << "\n5. Exit";
+
+        cout << "\nEnter Choice: ";
+        cin >> choice;
+
+        switch(choice)
+        {
+            case 1:
+                cout << "Enter Two Numbers: ";
+                cin >> num1 >> num2;
+
+                cout << "Result = "
+                     << add(num1, num2);
+                break;
+
+            case 2:
+                cout << "Enter Two Numbers: ";
+                cin >> num1 >> num2;
+
+                cout << "Result = "
+                     << subtract(num1, num2);
+                break;
+
+            case 3:
+                cout << "Enter Two Numbers: ";
+                cin >> num1 >> num2;
+
+                cout << "Result = "
+                     << multiply(num1, num2);
+                break;
+
+            case 4:
+                cout << "Enter Two Numbers: ";
+                cin >> num1 >> num2;
+
+                if(num2 == 0)
+                    cout << "Division by Zero Not Possible";
+                else
+                    cout << "Result = "
+                         << divide(num1, num2);
+
+                break;
+
+            case 5:
+                cout << "Exiting Program...";
+                break;
+
+            default:
+                cout << "Invalid Choice";
+        }
+
+    } while(choice != 5);
+
+    return 0;
+}
+
+
+
+
+
+/////// Area Calculator using Function overloading
+
+
+
+#include <iostream>
+using namespace std;
+
+// Circle
+double area(double radius)
+{
+    return 3.14 * radius * radius;
+}
+
+// Rectangle
+double area(double length, double breadth)
+{
+    return length * breadth;
+}
+
+// Triangle
+double area(double base, double height, char shape)
+{
+    if(shape == 'T')
+    {
+        return 0.5 * base * height;
+    }
+
+    return 0;
+}
+
+int main()
+{
+    int choice;
+
+    cout << "1. Circle" << endl;
+    cout << "2. Rectangle" << endl;
+    cout << "3. Triangle" << endl;
+
+    cout << "Enter your choice: ";
+    cin >> choice;
+
+    switch(choice)
+    {
+        case 1:
+        {
+            double radius;
+
+            cout << "Enter Radius: ";
+            cin >> radius;
+
+            if(radius <= 0)
+            {
+                cout << "Invalid Input";
+            }
+            else
+            {
+                cout << "Area of Circle = "
+                     << area(radius);
+            }
+
+            break;
+        }
+
+        case 2:
+        {
+            double length, breadth;
+
+            cout << "Enter Length and Breadth: ";
+            cin >> length >> breadth;
+
+            if(length <= 0 || breadth <= 0)
+            {
+                cout << "Invalid Input";
+            }
+            else
+            {
+                cout << "Area of Rectangle = "
+                     << area(length, breadth);
+            }
+
+            break;
+        }
+
+        case 3:
+        {
+            double base, height;
+
+            cout << "Enter Base and Height: ";
+            cin >> base >> height;
+
+            if(base <= 0 || height <= 0)
+            {
+                cout << "Invalid Input";
+            }
+            else
+            {
+                cout << "Area of Triangle = "
+                     << area(base, height, 'T');
+            }
+
+            break;
+        }
+
+        default:
+            cout << "Invalid Choice";
+    }
+
+    return 0;
+}
+
+
+//Employee Salary Processing using Inheritance and Function Overloading
+
+
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Base Class
+class Employee {
+protected:
+    string empID;
+    string empName;
+    double basicSalary;
+
+public:
+    // Function to accept base employee details
+    void acceptBaseDetails() {
+        cout << "Enter Employee ID: ";
+        cin >> empID;
+        cin.ignore(); // To clear the input buffer before reading string with spaces
+        cout << "Enter Name: ";
+        getline(cin, empName);
+        cout << "Enter Basic Salary: ";
+        cin >> basicSalary;
+    }
+};
+
+// Derived Class
+class Manager : public Employee {
+private:
+    double hra;
+    double da;
+    double bonus;
+    double grossSalary;
+
+public:
+    // Overloaded Function 1: Calculates Gross Salary without bonus
+    void calculateSalary(double basic) {
+        hra = 0.20 * basic;
+        da = 0.10 * basic;
+        bonus = 0;
+        grossSalary = basic + hra + da;
+    }
+
+    // Overloaded Function 2: Calculates Gross Salary with bonus
+    void calculateSalary(double basic, double b) {
+        hra = 0.20 * basic;
+        da = 0.10 * basic;
+        bonus = b;
+        grossSalary = basic + hra + da + bonus;
+    }
+
+    // Function to accept Manager specific details and process salary
+    void acceptManagerDetails() {
+        acceptBaseDetails(); // Call base class function
+        double b;
+        cout << "Enter Bonus: ";
+        cin >> b;
+        
+        // Calling the overloaded function that accepts bonus
+        calculateSalary(basicSalary, b);
+        cout << "-----------------------------------\n";
+    }
+
+    // Function to display the required output format
+    void displayDetails() {
+        cout << "Employee ID  : " << empID << endl;
+        cout << "Name         : " << empName << endl;
+        cout << "Basic Salary : " << basicSalary << endl;
+        cout << "HRA          : " << hra << endl;
+        cout << "DA           : " << da << endl;
+        cout << "Bonus        : " << bonus << endl;
+        cout << "Gross Salary : " << grossSalary << endl;
+        cout << "-----------------------------------\n";
+    }
+};
+
+int main() {
+    // Array to hold details for 3 managers
+    Manager managers[3];
+
+    cout << "--- Enter Details for 3 Managers ---\n\n";
+    for (int i = 0; i < 3; i++) {
+        cout << "Manager " << (i + 1) << ":\n";
+        managers[i].acceptManagerDetails();
+    }
+
+    cout << "\n--- Displaying Manager Salary Details ---\n\n";
+    for (int i = 0; i < 3; i++) {
+        managers[i].displayDetails();
+    }
+
+    return 0;
+}
+
+
+//Visitor class with fdollowing details
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Visitor {
+private:
+    string visitorId;
+    string visitorName;
+    
+    // Static variable shared by all objects to track the total count
+    static int count; 
+
+public:
+    // Constructor - called automatically whenever a new object is created
+    Visitor(string id, string name) {
+        visitorId = id;
+        visitorName = name;
+        
+        // Increment the shared count for every new object
+        count++; 
+        
+        // Display the count immediately after creation as required
+        displayCount();
+    }
+
+    // Function to display the current object count
+    void displayCount() {
+        cout << "Object created! Current total visitors: " << count << endl;
+    }
+};
+
+// Definition and initialization of the static data member outside the class
+int Visitor::count = 0;
+
+int main() {
+    cout << "--- Creating Visitor Objects ---" << endl;
+
+    // Creating 1st object
+    Visitor v1("V101", "Alice");
+
+    // Creating 2nd object
+    Visitor v2("V102", "Bob");
+
+    // Creating 3rd object
+    Visitor v3("V103", "Charlie");
+
+    return 0;
+}
