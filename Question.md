@@ -1040,91 +1040,79 @@ class QuickSort
 // Space Complexity: O(1) — sorts in place!
 // ============================================================
 
-class HeapSort {
+// Java program for implementation of Heap Sort
+import java.util.Scanner;
 
-    // HEAPIFY: make subtree rooted at index i a max heap
-    // n = size of heap, i = root of subtree to heapify
-    static void heapify(int[] arr, int n, int i) {
-        int largest = i;          // assume root is largest
-        int left    = 2 * i + 1; // left child index
-        int right   = 2 * i + 2; // right child index
-
-        // Check if left child exists and is greater than root
-        if (left < n && arr[left] > arr[largest])
-            largest = left;
-
-        // Check if right child exists and is greater than current largest
-        if (right < n && arr[right] > arr[largest])
-            largest = right;
-
-        // If largest is NOT root, swap and continue heapifying
-        if (largest != i) {
-            int temp = arr[i];
-            arr[i] = arr[largest];
-            arr[largest] = temp;
-
-            // Recursively heapify the affected subtree
-            heapify(arr, n, largest);
-        }
-    }
-
-    static void sort(int[] arr) {
+public class HeapSort {
+    public void sort(int arr[])
+    {
         int n = arr.length;
-
-        // STEP 1: BUILD MAX HEAP
-        // Start from last non-leaf node and heapify each node
-        // Last non-leaf = n/2 - 1
-        System.out.println("── Building Max Heap ──");
-        for (int i = n / 2 - 1; i >= 0; i--) {
+        // Build heap (rearrange array)
+        for (int i = n / 2 - 1; i >= 0; i--)
             heapify(arr, n, i);
-        }
-        System.out.print("Max Heap built: ");
-        printArray(arr, n);
-
-        // STEP 2: EXTRACT MAX ONE BY ONE
-        System.out.println("\n── Extracting Elements ──");
-        for (int i = n - 1; i > 0; i--) {
-            // Swap root (max) with last element
+        // One by one extract an element from heap
+        for (int i = n - 1; i >= 0; i--) {
+            // Move current root to end
             int temp = arr[0];
             arr[0] = arr[i];
             arr[i] = temp;
-
-            System.out.print("Placed " + arr[i] + " at index " + i + " → Heap: ");
-            printArray(arr, i); // print only unsorted portion
-
-            // Heapify the reduced heap
+            // call max heapify on the reduced heap
             heapify(arr, i, 0);
         }
     }
-
-    static void printArray(int[] arr, int size) {
-        for (int i = 0; i < size; i++) System.out.print(arr[i] + " ");
-        if (size < arr.length) {
-            System.out.print("| Sorted: ");
-            for (int i = size; i < arr.length; i++) System.out.print(arr[i] + " ");
+    // To heapify a subtree rooted with node i which is
+    // an index in arr[]. n is size of heap
+    void heapify(int arr[], int n, int i)
+    {
+        int largest = i; // Initialize largest as root
+        int l = 2 * i + 1; // left = 2*i + 1
+        int r = 2 * i + 2; // right = 2*i + 2
+        // If left child is larger than root
+        if (l < n && arr[l] > arr[largest])
+            largest = l;
+        // If right child is larger than largest so far
+        if (r < n && arr[r] > arr[largest])
+            largest = r;
+        // If largest is not root
+        if (largest != i) {
+            int swap = arr[i];
+            arr[i] = arr[largest];
+            arr[largest] = swap;
+            // Recursively heapify the affected sub-tree
+            heapify(arr, n, largest);
         }
+    }
+    /* A utility function to print array of size n */
+    static void printArray(int arr[])
+    {
+        int n = arr.length;
+        for (int i = 0; i < n; ++i)
+            System.out.print(arr[i] + " ");
         System.out.println();
     }
-
-    static void printArray(int[] arr) {
-        for (int x : arr) System.out.print(x + " ");
-        System.out.println();
-    }
-
-    static void run() {
+    // Driver program
+    public static void main(String args[])
+    {
         Scanner sc = new Scanner(System.in);
+
+        // ── ONLY CHANGE: take input from user ──
         System.out.print("Enter number of elements: ");
         int n = sc.nextInt();
-        int[] arr = new int[n];
-        System.out.print("Enter elements: ");
-        for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
 
-        System.out.print("\nOriginal array: ");
+        int arr[] = new int[n];
+        System.out.print("Enter elements: ");
+        for (int i = 0; i < n; i++)
+            arr[i] = sc.nextInt();
+        // ── END OF CHANGE ──
+
+        HeapSort ob = new HeapSort();
+        ob.sort(arr);
+        System.out.println("Sorted array is");
         printArray(arr);
-        System.out.println();
-        sort(arr);
-        System.out.print("\nFinal sorted:   ");
-        printArray(arr);
+
+        sc.close();
     }
 }
 
+
+    
