@@ -172,3 +172,122 @@ public class StackExample {
 	}
 
 }
+
+
+
+
+// Implemeting Stack using AraayList -----------------------------------------------------------------------------------------
+
+package stacks;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Stack
+{
+    ArrayList<Integer> arr = new ArrayList<>();
+
+    // PUSH
+    void push(int data)
+    {
+        arr.add(data);
+
+        System.out.println(data + " inserted");
+    }
+
+    // POP
+    void pop()
+    {
+        if(arr.isEmpty())
+        {
+            System.out.println("Underflow");
+        }
+        else
+        {
+            int top = arr.remove(arr.size() - 1);
+
+            System.out.println(top + " deleted");
+        }
+    }
+
+    // DISPLAY
+    void display()
+    {
+        if(arr.isEmpty())
+        {
+            System.out.println("Stack is Empty");
+        }
+        else
+        {
+            System.out.println("Stack Elements:");
+
+            for(int i=arr.size()-1; i>=0; i--)
+            {
+                System.out.println(arr.get(i));
+            }
+        }
+    }
+}
+
+public class StackExample
+{
+    public static void main(String[] args)
+    {
+        Scanner scan = new Scanner(System.in);
+
+        Stack s = new Stack();
+
+        int choice;
+        int data;
+
+        do
+        {
+            System.out.println("\n1: Push");
+            System.out.println("2: Pop");
+            System.out.println("3: Display");
+            System.out.println("4: Exit");
+
+            System.out.print("Enter Choice: ");
+
+            choice = scan.nextInt();
+
+            switch(choice)
+            {
+                case 1:
+
+                    System.out.print("Enter Data: ");
+
+                    data = scan.nextInt();
+
+                    s.push(data);
+
+                    break;
+
+                case 2:
+
+                    s.pop();
+
+                    break;
+
+                case 3:
+
+                    s.display();
+
+                    break;
+
+                case 4:
+
+                    System.out.println("Exiting");
+
+                    break;
+
+                default:
+
+                    System.out.println("Invalid Choice");
+            }
+
+        } while(choice != 4);
+
+        scan.close();
+    }
+}
