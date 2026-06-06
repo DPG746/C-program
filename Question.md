@@ -867,82 +867,89 @@ class BinarySearch {
 // ============================================================
 
 
+// Java program for Merge Sort
+import java.util.Scanner;
+
 class MergeSort {
-
-    // MERGE: combine two sorted halves
-    static void merge(int[] arr, int left, int mid, int right) {
-        // Calculate sizes of two sub-arrays
-        int n1 = mid - left + 1;
-        int n2 = right - mid;
-
-        // Create temp arrays
-        int[] L = new int[n1];
-        int[] R = new int[n2];
-
-        // Copy data to temp arrays
-        for (int i = 0; i < n1; i++) L[i] = arr[left + i];
-        for (int j = 0; j < n2; j++) R[j] = arr[mid + 1 + j];
-
-        // Merge the temp arrays back
-        int i = 0;    // index for L
-        int j = 0;    // index for R
-        int k = left; // index for main array
-
+  
+    // Merges two subarrays of a[]
+    void merge(int a[], int l, int m, int r)
+    {
+        int n1 = m - l + 1;
+        int n2 = r - m;
+        int L[] = new int[n1];
+        int R[] = new int[n2];
+        for (int i = 0; i < n1; ++i)
+            L[i] = a[l + i];
+        for (int j = 0; j < n2; ++j)
+            R[j] = a[m + 1 + j];
+        // Merge the temp arrays
+        // Initial indexes of first and second subarrays
+        int i = 0, j = 0;
+        int k = l;
         while (i < n1 && j < n2) {
             if (L[i] <= R[j]) {
-                arr[k] = L[i];   // pick from left
+                a[k] = L[i];
                 i++;
-            } else {
-                arr[k] = R[j];   // pick from right
+            }
+            else {
+                a[k] = R[j];
                 j++;
             }
             k++;
         }
-
-        // Copy remaining elements of L (if any)
-        while (i < n1) { arr[k] = L[i]; i++; k++; }
-
-        // Copy remaining elements of R (if any)
-        while (j < n2) { arr[k] = R[j]; j++; k++; }
-
-        // Show state after each merge
-        System.out.print("Merged [" + left + ".." + right + "]: ");
-        for (int x = left; x <= right; x++) System.out.print(arr[x] + " ");
-        System.out.println();
-    }
-
-    // SORT: recursively divide, then merge
-    static void sort(int[] arr, int left, int right) {
-        if (left < right) {           // base case: single element
-            int mid = (left + right) / 2;
-
-            sort(arr, left, mid);     // sort left half
-            sort(arr, mid + 1, right);// sort right half
-            merge(arr, left, mid, right); // merge both halves
+        while (i < n1) {
+            a[k] = L[i];
+            i++;
+            k++;
+        }
+        while (j < n2) {
+            a[k] = R[j];
+            j++;
+            k++;
         }
     }
 
-    static void printArray(int[] arr) {
-        for (int x : arr) System.out.print(x + " ");
-        System.out.println();
+    // Main function that sorts a[l..r] using merge()
+    void sort(int a[], int l, int r)
+    {
+        if (l < r) {
+            int m = (l + r) / 2;
+            // Sort first and second halves
+            sort(a, l, m);
+            sort(a, m + 1, r);
+            // Merge the sorted halves
+            merge(a, l, m, r);
+        }
     }
 
-    static void run() {
+    // Driver method
+    public static void main(String args[])
+    {
         Scanner sc = new Scanner(System.in);
+
+        // ── ONLY CHANGE: take input from user ──
         System.out.print("Enter number of elements: ");
         int n = sc.nextInt();
-        int[] arr = new int[n];
-        System.out.print("Enter elements: ");
-        for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
 
-        System.out.print("\nOriginal array: ");
-        printArray(arr);
-        System.out.println("\n── Merge Steps ──");
-        sort(arr, 0, n - 1);
-        System.out.print("\nFinal sorted:   ");
-        printArray(arr);
+        int a[] = new int[n];
+        System.out.print("Enter elements: ");
+        for (int i = 0; i < n; i++)
+            a[i] = sc.nextInt();
+        // ── END OF CHANGE ──
+
+        // Calling of Merge Sort
+        MergeSort ob = new MergeSort();
+        ob.sort(a, 0, a.length - 1);
+
+        System.out.print("Sorted array: ");
+        for (int i = 0; i < n; ++i)
+            System.out.print(a[i] + " ");
+
+        sc.close();
     }
 }
+
 
 
 // ============================================================
