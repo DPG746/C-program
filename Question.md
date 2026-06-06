@@ -962,65 +962,71 @@ class MergeSort {
 // ============================================================
 
 
-class QuickSort {
+    // Java program for implementation of QuickSort
+import java.util.Scanner;
 
-    // PARTITION: place pivot in correct position
-    // Returns index where pivot is placed
-    static int partition(int[] arr, int low, int high) {
-        int pivot = arr[high];  // last element as pivot
-        int i = low - 1;        // index of smaller element
-
-        System.out.print("Pivot = " + pivot + " | Array: ");
-        for (int x = low; x <= high; x++) System.out.print(arr[x] + " ");
-        System.out.println();
-
-        for (int j = low; j < high; j++) {
-            if (arr[j] <= pivot) {       // if current < pivot
+class QuickSort
+{
+    int partition(int a[], int low, int high)
+    {
+        int pivot = a[high]; 
+        int i = (low-1);
+        for (int j=low; j<high; j++)
+        {
+          
+            // If current element is smaller than or
+            // equal to pivot
+            if (a[j] <= pivot)
+            {
                 i++;
-                // SWAP arr[i] and arr[j]
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
+                int temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
             }
         }
-
-        // Place pivot in correct position
-        int temp = arr[i + 1];
-        arr[i + 1] = arr[high];
-        arr[high] = temp;
-
-        System.out.println("  Pivot " + pivot + " placed at index " + (i + 1));
-        return i + 1;  // return pivot's final index
+        int temp = a[i+1];
+        a[i+1] = a[high];
+        a[high] = temp;
+        return i+1;
     }
-
-    // SORT: recursively apply quicksort
-    static void sort(int[] arr, int low, int high) {
-        if (low < high) {
-            int pivotIndex = partition(arr, low, high); // partition and get pivot index
-            sort(arr, low, pivotIndex - 1);             // sort left of pivot
-            sort(arr, pivotIndex + 1, high);            // sort right of pivot
+    /* The main function that implements QuickSort()
+      a[] --> Array to be sorted,
+      l  --> Starting index,
+      h  --> Ending index */
+    void sort(int a[], int l, int h)
+    {
+        if (l < h)
+        {
+            int pi = partition(a, l, h);
+            // Recursively sort elements before
+            // partition and after partition
+            sort(a, l, pi-1);
+            sort(a, pi+1, h);
         }
     }
-
-    static void printArray(int[] arr) {
-        for (int x : arr) System.out.print(x + " ");
-        System.out.println();
-    }
-
-    static void run() {
+    // Driver program
+    public static void main(String args[])
+    {
         Scanner sc = new Scanner(System.in);
+
+        // ── ONLY CHANGE: take input from user ──
         System.out.print("Enter number of elements: ");
         int n = sc.nextInt();
-        int[] arr = new int[n];
-        System.out.print("Enter elements: ");
-        for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
 
-        System.out.print("\nOriginal array: ");
-        printArray(arr);
-        System.out.println("\n── Partition Steps ──");
-        sort(arr, 0, n - 1);
-        System.out.print("\nFinal sorted:   ");
-        printArray(arr);
+        int a[] = new int[n];
+        System.out.print("Enter elements: ");
+        for (int i = 0; i < n; i++)
+            a[i] = sc.nextInt();
+        // ── END OF CHANGE ──
+
+        QuickSort ob = new QuickSort();
+        ob.sort(a, 0, n-1);
+
+        System.out.print("Sorted array: ");
+        for (int i=0; i<n; ++i)
+            System.out.print(a[i]+" ");
+
+        sc.close();
     }
 }
 
