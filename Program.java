@@ -291,3 +291,143 @@ public class StackExample
         scan.close();
     }
 }
+
+//Implementing Staxk using LinkedList-----------------------------------------------------------------------------------------------
+
+package stacks;
+
+import java.util.Scanner;
+
+// Node Class
+class Node
+{
+    int data;
+
+    Node next;
+
+    Node(int data)
+    {
+        this.data = data;
+
+        this.next = null;
+    }
+}
+
+// Stack Using Linked List
+class Stack
+{
+    Node top = null;
+
+    // PUSH
+    void push(int data)
+    {
+        Node nn = new Node(data);
+
+        nn.next = top;
+
+        top = nn;
+
+        System.out.println(data + " inserted");
+    }
+
+    // POP
+    void pop()
+    {
+        if(top == null)
+        {
+            System.out.println("Underflow");
+        }
+        else
+        {
+            System.out.println(top.data + " deleted");
+
+            top = top.next;
+        }
+    }
+
+    // DISPLAY
+    void display()
+    {
+        if(top == null)
+        {
+            System.out.println("Stack is Empty");
+        }
+        else
+        {
+            Node temp = top;
+
+            System.out.println("Stack Elements:");
+
+            while(temp != null)
+            {
+                System.out.println(temp.data);
+
+                temp = temp.next;
+            }
+        }
+    }
+}
+
+// Main Class
+public class StackExample
+{
+    public static void main(String[] args)
+    {
+        Scanner scan = new Scanner(System.in);
+
+        Stack s = new Stack();
+
+        int choice;
+        int data;
+
+        do
+        {
+            System.out.println("\n1.Push");
+            System.out.println("2.Pop");
+            System.out.println("3.Display");
+            System.out.println("4.Exit");
+
+            System.out.print("Enter Choice: ");
+
+            choice = scan.nextInt();
+
+            switch(choice)
+            {
+                case 1:
+
+                    System.out.print("Enter Data: ");
+
+                    data = scan.nextInt();
+
+                    s.push(data);
+
+                    break;
+
+                case 2:
+
+                    s.pop();
+
+                    break;
+
+                case 3:
+
+                    s.display();
+
+                    break;
+
+                case 4:
+
+                    System.out.println("Exiting");
+
+                    break;
+
+                default:
+
+                    System.out.println("Invalid Choice");
+            }
+
+        } while(choice != 4);
+
+        scan.close();
+    }
+}
