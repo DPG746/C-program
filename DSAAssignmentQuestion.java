@@ -1691,4 +1691,209 @@ public class Main {
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+//1. Create a menu-driven program to perform operations on a Circular Singly Linked List
+import java.util.*;
 
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+    }
+}
+
+public class Main {
+    static Node last = null;
+
+    static void insertBegin(int data) {
+        Node n = new Node(data);
+
+        if (last == null) {
+            last = n;
+            last.next = last;
+        } else {
+            n.next = last.next;
+            last.next = n;
+        }
+    }
+
+    static void insertEnd(int data) {
+        Node n = new Node(data);
+
+        if (last == null) {
+            last = n;
+            last.next = last;
+        } else {
+            n.next = last.next;
+            last.next = n;
+            last = n;
+        }
+    }
+
+    static void deleteBegin() {
+        if (last == null)
+            return;
+
+        if (last.next == last)
+            last = null;
+        else
+            last.next = last.next.next;
+    }
+
+    static void deleteEnd() {
+        if (last == null)
+            return;
+
+        if (last.next == last) {
+            last = null;
+            return;
+        }
+
+        Node temp = last.next;
+
+        while (temp.next != last)
+            temp = temp.next;
+
+        temp.next = last.next;
+        last = temp;
+    }
+
+    static void display() {
+        if (last == null) {
+            System.out.println("Empty");
+            return;
+        }
+
+        Node temp = last.next;
+
+        do {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        } while (temp != last.next);
+
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("1.Insert Begin");
+            System.out.println("2.Insert End");
+            System.out.println("3.Delete Begin");
+            System.out.println("4.Delete End");
+            System.out.println("5.Display");
+            System.out.println("6.Exit");
+
+            int ch = sc.nextInt();
+
+            switch (ch) {
+                case 1:
+                    insertBegin(sc.nextInt());
+                    break;
+                case 2:
+                    insertEnd(sc.nextInt());
+                    break;
+                case 3:
+                    deleteBegin();
+                    break;
+                case 4:
+                    deleteEnd();
+                    break;
+                case 5:
+                    display();
+                    break;
+                case 6:
+                    return;
+            }
+        }
+    }
+}
+-----------------------------------------------------------
+//Q2. Sort Employee Records using Selection Sort
+import java.util.*;
+
+class Employee {
+    int id;
+    String name;
+    double salary;
+
+    Employee(int id, String name, double salary) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        Employee[] e = new Employee[n];
+
+        for (int i = 0; i < n; i++) {
+            e[i] = new Employee(sc.nextInt(), sc.next(), sc.nextDouble());
+        }
+
+        for (int i = 0; i < n - 1; i++) {
+            int min = i;
+
+            for (int j = i + 1; j < n; j++) {
+                if (e[j].salary < e[min].salary)
+                    min = j;
+            }
+
+            Employee temp = e[i];
+            e[i] = e[min];
+            e[min] = temp;
+        }
+
+        for (Employee x : e)
+            System.out.println(x.id + " " + x.name + " " + x.salary);
+    }
+}
+----------------------------------------
+//Q3. Sort Student Records using Bubble Sort
+import java.util.*;
+
+class Student {
+    int roll;
+    String name;
+    int marks;
+
+    Student(int roll, String name, int marks) {
+        this.roll = roll;
+        this.name = name;
+        this.marks = marks;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        Student[] s = new Student[n];
+
+        for (int i = 0; i < n; i++) {
+            s[i] = new Student(sc.nextInt(), sc.next(), sc.nextInt());
+        }
+
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (s[j].marks < s[j + 1].marks) {
+                    Student temp = s[j];
+                    s[j] = s[j + 1];
+                    s[j + 1] = temp;
+                }
+            }
+        }
+
+        for (Student x : s)
+            System.out.println(x.roll + " " + x.name + " " + x.marks);
+    }
+}
