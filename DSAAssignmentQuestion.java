@@ -259,8 +259,50 @@ public class BinarySearchFIrstandLastOccurance {
 }
 }
 
+// Selection SOrt---------------------------------------------------------------------------
+
+package Preparation;
+
+import java.util.Scanner;
+
+public class SelectionSort {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		int[] arr= {4,6,7,5};
+		int n=arr.length;
+		
+		for(int i=0;i<n-1;i++) {
+			int minn=i;
+			for(int j=i+1;j<n;j++) {
+				if(arr[j]<arr[minn]) {
+					minn=j;
+					
+				}
+				
+			}
+			int temp=arr[i];
+			arr[i]=arr[minn];
+			arr[minn]=temp;
+			
+		}
+		for(int x: arr) {
+			System.out.print(x+" ");
+			
+		}
+		
+	}
+
+}
+
+
+//----------------------------------//---------------------------------------//-------------------------------------//------------------------------------//
+
+
+
 //VVVVVVVVVVVVVVVVV VVVVVVVVVVVVVVVVV
---Infix to Postfix--
+
+
+//--Infix to Postfix--
 
 import java.util.*;
 
@@ -308,7 +350,12 @@ public class InfixToPostfix {
     }
 }
 
---Evaluate Postfix--
+
+//------------------------------------------------------------------------------------
+
+
+	
+//--Evaluate Postfix--
 
 import java.util.*;
 
@@ -350,7 +397,11 @@ public class EvaluatePostfix {
     }
 }
 
---Count ways to Climb--
+
+--------------------------------------------------------------------------------------------------------
+
+	
+//--Count ways to Climb--
 
 import java.util.*;
 
@@ -372,7 +423,10 @@ public class ClimbStairs {
     }
 }
 
---Quick Sort--
+
+-------------------------------------------------------------------------------------------
+
+//--Quick Sort--
 
 import java.util.*;
 
@@ -429,7 +483,11 @@ public class QuickSort {
     }
 }
 
---Heap Sort--
+
+
+//---------------------------------------------------------------------------------------------------
+
+//--Heap Sort--
 
 import java.util.*;
 
@@ -484,7 +542,11 @@ public class HeapSort {
     }
 }
 
---Second Largest Element--
+//--------------------------------------------------------------------------------------------------
+
+
+
+//--Second Largest Element--
 
 import java.util.*;
 
@@ -519,7 +581,12 @@ public class SecondLargest {
     }
 }
 
---Insert Node at Pos--
+
+
+
+//--------------------------------------------------------------------------------------------------------------
+
+//--Insert Node at Pos--
 
 import java.util.*;
 
@@ -577,7 +644,11 @@ public class InsertAtPosition {
     }
 }
 
---Delete Node by Value--
+
+
+//--------------------------------------------------------------------------------------------------------------
+
+//--Delete Node by Value--
 
 class Node {
     int data;
@@ -633,7 +704,17 @@ public class DeleteByValue {
     }
 }
 
---Generate Binary Number--
+
+
+
+
+//--------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+//--Generate Binary Number--
 
 import java.util.*;
 
@@ -661,7 +742,14 @@ public class BinaryNumbers {
     }
 }
 
---Priorty Queue--
+
+
+//--------------------------------------------------------------------------------------------------------------
+
+
+
+
+//--Priorty Queue--
 
 import java.util.*;
 
@@ -683,7 +771,13 @@ public class PriorityQueueDemo {
     }
 }
 
---Jump Search--
+
+
+//--------------------------------------------------------------------------------------------------------------
+
+
+
+//--Jump Search--
 
 import java.util.*;
 
@@ -726,7 +820,14 @@ public class JumpSearch {
     }
 }
 
---Circular Queue--
+
+
+
+
+//--------------------------------------------------------------------------------------------------------------
+
+
+//--Circular Queue--
 
 import java.util.*;
 
@@ -791,7 +892,17 @@ public class CircularQueue {
     }
 }
 
---Fibonacci Using Recursion--
+
+
+
+
+
+//--------------------------------------------------------------------------------------------------------------
+
+
+
+
+//--Fibonacci Using Recursion--
 
 import java.util.*;
 
@@ -816,7 +927,17 @@ public class Fibonacci {
     }
 }
 
---First nonRepeating Char--
+
+
+
+
+//--------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+//--First nonRepeating Char--
 
 import java.util.*;
 
@@ -853,7 +974,7 @@ public class FirstNonRepeating {
 
 //MMMMMMMMMMMMMMMMM KMMMMMMMMMMMM M------------------------------------------------
 
-+----- Second Largest Element in Array -------+
+//+----- Second Largest Element in Array -------+
 
 
 import java.util.*;
@@ -887,6 +1008,8 @@ public class SecondLargest {
 }
 
 
+
+//--------------------------------------------------------------------------------------------------------------
 //+------ Insert Node at Specific Position (Linked List)-----+
 
 
@@ -946,6 +1069,9 @@ public class InsertAtPosition {
 }
 
 
+
+
+//--------------------------------------------------------------------------------------------------------------
 //+------ Delete Node by Value (Linked List) ------+
 
 
@@ -1005,6 +1131,9 @@ public class DeleteByValue {
 }
 
 
+
+//--------------------------------------------------------------------------------------------------------------
+
 //+------ Generate Binary Numbers 1 to N Using Queue ------+
 
 
@@ -1032,6 +1161,8 @@ public class BinaryNumbers {
 }
 
 
+
+//--------------------------------------------------------------------------------------------------------------
 //+----- Priority Queue (Array Implementation) -------+
 
 
@@ -1081,6 +1212,207 @@ public class PriorityQueueDemo {
         display();
     }
 }
+
+
+//--------------------------------------------------------------------------------------------------------------
+
+
+
+//1. Jump Search
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static int jumpSearch(int[] arr, int key) {
+        int n = arr.length;
+        int step = (int) Math.sqrt(n);
+        int prev = 0;
+
+        // Jump forward
+        while (prev < n && arr[Math.min(step, n) - 1] < key) {
+            prev = step;
+            step += (int) Math.sqrt(n);
+
+            if (prev >= n)
+                return -1;
+        }
+
+        // Linear search in the identified block
+        for (int i = prev; i < Math.min(step, n); i++) {
+            if (arr[i] == key)
+                return i;
+        }
+
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        int key = sc.nextInt();
+
+        System.out.println(jumpSearch(arr, key));
+
+        sc.close();
+    }
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//2. Circular Queue :  Implement a circular queue with ENQUEUE, DEQUEUE, DISPLAY operations.
+
+
+import java.util.Scanner;
+
+class CircularQueue {
+    int[] queue;
+    int front, rear, size;
+
+    CircularQueue(int size) {
+        this.size = size;
+        queue = new int[size];
+        front = -1;
+        rear = -1;
+    }
+
+    void enqueue(int value) {
+        if ((rear + 1) % size == front) {
+            System.out.println("Queue is Full");
+            return;
+        }
+
+        if (front == -1) {
+            front = rear = 0;
+        } else {
+            rear = (rear + 1) % size;
+        }
+
+        queue[rear] = value;
+    }
+
+    void dequeue() {
+        if (front == -1) {
+            System.out.println("Queue is Empty");
+            return;
+        }
+
+        if (front == rear) {
+            front = rear = -1;
+        } else {
+            front = (front + 1) % size;
+        }
+    }
+
+    void display() {
+        if (front == -1) {
+            System.out.println("Queue is Empty");
+            return;
+        }
+
+        int i = front;
+        while (true) {
+            System.out.print(queue[i] + " ");
+            if (i == rear)
+                break;
+            i = (i + 1) % size;
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int size = sc.nextInt();
+        CircularQueue cq = new CircularQueue(size);
+
+        int n = sc.nextInt(); // number of operations
+
+        for (int i = 0; i < n; i++) {
+            String op = sc.next();
+
+            if (op.equalsIgnoreCase("ENQUEUE")) {
+                int val = sc.nextInt();
+                cq.enqueue(val);
+            } else if (op.equalsIgnoreCase("DEQUEUE")) {
+                cq.dequeue();
+            } else if (op.equalsIgnoreCase("DISPLAY")) {
+                cq.display();
+            }
+        }
+
+        sc.close();
+    }
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//3. Fibonacci using Recursion
+
+import java.util.Scanner;
+
+public class Main {
+
+    static int fib(int n) {
+        if (n == 0)
+            return 0;
+        if (n == 1)
+            return 1;
+
+        return fib(n - 1) + fib(n - 2);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        for (int i = 0; i < n; i++) {
+            System.out.print(fib(i) + " ");
+        }
+
+        sc.close();
+    }
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//4. First Non-Repeating Character in Stream
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String stream = sc.next();
+
+        int[] freq = new int[256];
+        Queue<Character> q = new LinkedList<>();
+
+        for (char ch : stream.toCharArray()) {
+            freq[ch]++;
+            q.offer(ch);
+
+            while (!q.isEmpty() && freq[q.peek()] > 1) {
+                q.poll();
+            }
+
+            if (q.isEmpty()) {
+                System.out.print("-1 ");
+            } else {
+                System.out.print(q.peek() + " ");
+            }
+        }
+
+        sc.close();
+    }
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
