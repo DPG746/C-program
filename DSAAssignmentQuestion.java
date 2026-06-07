@@ -1897,3 +1897,232 @@ public class Main {
             System.out.println(x.roll + " " + x.name + " " + x.marks);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------
+
+//-------------	Linked List done By ME
+
+
+	Node class:
+
+
+	package SingleLinkedList;
+
+public class Node {
+	private int data;
+	private Node next;
+	
+	public Node(int data) {
+		this.data = data;
+	}
+	public int getData() {
+		return data;
+	}
+	public void setData(int data) {
+		this.data = data;
+	}
+	public Node getNext() {
+		return next;
+	}
+	public void setNext(Node next) {
+		this.next = next;
+	}
+
+}
+
+
+
+Main Class:
+
+
+	package SingleLinkedList;
+
+public class Mainll {
+	public static void main(String[] args) {
+		
+		Node head = null;
+		
+		head=insertAtFront(head,50);
+		head=insertAtFront(head,40);
+		head=insertAtFront(head,30);
+		head=insertAtFront(head,20);
+		head=insertAtFront(head,10);
+		head=insertAtFront(head,5);
+		printiteratelinkedList(head);
+		
+		head=insertAtEnd(head,60);
+		head = insertAtIndex(head,75,4);
+		printiteratelinkedList(head);
+		head=deleteAtIndex(head,75,4);
+		printiteratelinkedList(head);
+		
+		
+		
+		
+		
+																		
+																//		head=deleteAtFront(head);
+																//		printiteratelinkedList(head); // 5 gone 
+																//		
+																//		head=deleteAtFront(head);
+																//		printiteratelinkedList(head); // 10 gone 
+																//		
+																		
+																		
+		
+															//	Node ten = new Node(10);
+															//	Node twenty = new Node(20);
+															//	Node thirdy = new Node(30);
+															//	Node fourty = new Node(40);
+															//	Node fifty = new Node(50);
+															//	
+															//	Node head = ten;
+															//	ten.setNext(twenty);
+															//	twenty.setNext(thirdy);
+															//	thirdy.setNext(fourty);
+															//	fourty.setNext(fifty);
+															//	fifty.setNext(null);
+															//	Node temp = head;
+																
+															//	while(temp!=null) {
+															//		System.out.println(temp.getData());
+															//		temp=temp.getNext();
+															//		}
+																  //printiteratelinkedList(head);
+																
+																// printtillsecondLastNode(head);
+	}
+	
+	public static void printiteratelinkedList(Node head) {
+		System.out.println("Printing the Linked List");
+		Node curr=head;
+		
+		while(curr !=null) {
+			System.out.println(curr.getData());
+			curr=curr.getNext();
+			
+		}
+		
+	}
+	public static void printtillsecondLastNode(Node head) {
+		Node curr = head;
+		
+		while(curr.getNext()!=null) {
+			System.out.println(curr.getData());
+			curr=curr.getNext();
+			
+		}
+		
+	}
+	public static Node insertAtFront(Node head , int data) {
+		Node nn = new Node(data);
+		nn.setNext(null);
+		
+		if(head==null) {
+			head=nn;
+			
+		}
+		else {
+			nn.setNext(head);
+			head=nn;
+		}
+		return head;
+	}
+	
+	public static Node insertAtEnd(Node head,int data) {
+		Node nn1 = new Node(data);
+		nn1.setNext(null);
+		
+		if(head==null) {
+			head = nn1;
+			return nn1;
+			
+		}
+		Node curr=head;
+		while(curr.getNext()!=null) {
+			curr=curr.getNext();
+			
+		}
+		curr.setNext(nn1);
+		return head;
+		
+	}
+	
+	public static Node deleteAtFront(Node head) {
+		
+		Node curr=head;
+		while(curr!=null) {
+			head=head.getNext();
+			return head;
+			
+		}
+		return head;
+		
+	}
+	
+	public static Node insertAtIndex(Node head,int data,int index) {
+		Node nunu= new Node(data);
+		if(index==0) {
+			nunu.setNext(head);
+			head=nunu;
+			return head;
+			
+		}
+		
+		Node curr=head;
+		for(int i=0;i<index-1 && curr !=null;i++) {
+			curr=curr.getNext();
+			
+		}
+		if(curr == null) {
+			System.out.println("Invalid Index");
+			return head;
+			
+		}
+			nunu.setNext(curr.getNext());
+			curr.setNext(nunu);
+			return head;
+		
+	}
+	
+	public static Node deleteAtIndex(Node head,int data,int index) {
+		Node curr= head;
+		Node prev = null;
+		if(index ==0) {
+			head=head.getNext();
+			return head;
+			
+		}
+		for(int i=0;i<index-1 && curr!=null;i++) {
+			prev=curr;
+			curr=curr.getNext();
+			
+		}
+		if(curr==null) {
+			System.out.println("Invalid Index");
+			return head;
+			
+		}
+		prev.setNext(curr.getNext());
+		curr=curr.getNext();
+		
+		return head;
+			
+		
+		
+	}
+
+}
+
