@@ -431,3 +431,362 @@ public class StackExample
         scan.close();
     }
 }
+
+
+//Implementing queue with array----------------------------------------------------
+import java.util.Scanner;
+
+class Queue
+{
+    int arr[] = new int[5];
+
+    int front = -1;
+
+    int rear = -1;
+
+    // ENQUEUE
+    void enqueue(int data)
+    {
+        if(rear == arr.length - 1)
+        {
+            System.out.println("Queue Overflow");
+        }
+        else
+        {
+            if(front == -1)
+            {
+                front = 0;
+            }
+
+            rear++;
+
+            arr[rear] = data;
+
+            System.out.println(data + " inserted");
+        }
+    }
+
+    // DEQUEUE
+    void dequeue()
+    {
+        if(front == -1 || front > rear)
+        {
+            System.out.println("Queue Underflow");
+        }
+        else
+        {
+            System.out.println(arr[front] + " deleted");
+
+            front++;
+        }
+    }
+
+    // DISPLAY
+    void display()
+    {
+        if(front == -1 || front > rear)
+        {
+            System.out.println("Queue is Empty");
+        }
+        else
+        {
+            System.out.println("Queue Elements:");
+
+            for(int i=front; i<=rear; i++)
+            {
+                System.out.println(arr[i]);
+            }
+        }
+    }
+}
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+
+        Queue q = new Queue();
+
+        int choice;
+        int data;
+
+        do
+        {
+            System.out.println("\n1.Enqueue");
+            System.out.println("2.Dequeue");
+            System.out.println("3.Display");
+            System.out.println("4.Exit");
+
+            System.out.print("Enter Choice: ");
+
+            choice = sc.nextInt();
+
+            switch(choice)
+            {
+                case 1:
+
+                    System.out.print("Enter Data: ");
+
+                    data = sc.nextInt();
+
+                    q.enqueue(data);
+
+                    break;
+
+                case 2:
+
+                    q.dequeue();
+
+                    break;
+
+                case 3:
+
+                    q.display();
+
+                    break;
+
+                case 4:
+
+                    System.out.println("Exiting");
+
+                    break;
+
+                default:
+
+                    System.out.println("Invalid Choice");
+            }
+
+        } while(choice != 4);
+
+        sc.close();
+    }
+}
+
+//queue using ArrayList---------------------------------------------------------------
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Queue
+{
+    ArrayList<Integer> arr = new ArrayList<>();
+
+    int front = 0;
+
+    // ENQUEUE
+    void enqueue(int data)
+    {
+        arr.add(data);
+
+        System.out.println(data + " inserted");
+    }
+
+    // DEQUEUE
+    void dequeue()
+    {
+        if(arr.isEmpty() || front >= arr.size())
+        {
+            System.out.println("Queue Underflow");
+        }
+        else
+        {
+            System.out.println(arr.get(front) + " deleted");
+
+            front++;
+        }
+    }
+
+    // DISPLAY
+    void display()
+    {
+        if(arr.isEmpty() || front >= arr.size())
+        {
+            System.out.println("Queue is Empty");
+        }
+        else
+        {
+            System.out.println("Queue Elements:");
+
+            for(int i=front; i<arr.size(); i++)
+            {
+                System.out.println(arr.get(i));
+            }
+        }
+    }
+}
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+
+        Queue q = new Queue();
+
+        int choice;
+        int data;
+
+        do
+        {
+            System.out.println("\n1.Enqueue");
+            System.out.println("2.Dequeue");
+            System.out.println("3.Display");
+            System.out.println("4.Exit");
+
+            System.out.print("Enter Choice: ");
+
+            choice = sc.nextInt();
+
+            switch(choice)
+            {
+                case 1:
+
+                    System.out.print("Enter Data: ");
+
+                    data = sc.nextInt();
+
+                    q.enqueue(data);
+
+                    break;
+
+                case 2:
+
+                    q.dequeue();
+
+                    break;
+
+                case 3:
+
+                    q.display();
+
+                    break;
+
+                case 4:
+
+                    System.out.println("Exiting");
+
+                    break;
+
+                default:
+
+                    System.out.println("Invalid Choice");
+            }
+
+        } while(choice != 4);
+
+        sc.close();
+    }
+}
+
+
+
+//Queue using Linkde List--------------------------------------------------
+import java.util.LinkedList;
+import java.util.Scanner;
+
+class Queue
+{
+    LinkedList<Integer> list = new LinkedList<>();
+
+    // ENQUEUE
+    void enqueue(int data)
+    {
+        list.addLast(data);
+
+        System.out.println(data + " inserted");
+    }
+
+    // DEQUEUE
+    void dequeue()
+    {
+        if(list.isEmpty())
+        {
+            System.out.println("Queue Underflow");
+        }
+        else
+        {
+            System.out.println(list.removeFirst() + " deleted");
+        }
+    }
+
+    // DISPLAY
+    void display()
+    {
+        if(list.isEmpty())
+        {
+            System.out.println("Queue is Empty");
+        }
+        else
+        {
+            System.out.println("Queue Elements:");
+
+            for(int i=0; i<list.size(); i++)
+            {
+                System.out.println(list.get(i));
+            }
+        }
+    }
+}
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+
+        Queue q = new Queue();
+
+        int choice;
+        int data;
+
+        do
+        {
+            System.out.println("\n1.Enqueue");
+            System.out.println("2.Dequeue");
+            System.out.println("3.Display");
+            System.out.println("4.Exit");
+
+            System.out.print("Enter Choice: ");
+
+            choice = sc.nextInt();
+
+            switch(choice)
+            {
+                case 1:
+
+                    System.out.print("Enter Data: ");
+
+                    data = sc.nextInt();
+
+                    q.enqueue(data);
+
+                    break;
+
+                case 2:
+
+                    q.dequeue();
+
+                    break;
+
+                case 3:
+
+                    q.display();
+
+                    break;
+
+                case 4:
+
+                    System.out.println("Exiting");
+
+                    break;
+
+                default:
+
+                    System.out.println("Invalid Choice");
+            }
+
+        } while(choice != 4);
+
+        sc.close();
+    }
+}
