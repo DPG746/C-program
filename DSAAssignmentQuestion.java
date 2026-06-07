@@ -297,6 +297,282 @@ public class SelectionSort {
 
 //----------------------------------//---------------------------------------//-------------------------------------//------------------------------------//
 
+//<PPPPPPPPPPpppppppppPPPPPPPPPPPP>
+
+
+//Q- Problem - Solve the Tower of hanoi problem . Print the steps of disk movement
+
+Solution - 
+		import java.util.Scanner;
+
+public class TowerOfHanoi {
+
+    public static void solve(int n, char source, char auxiliary, char destination) {
+
+        // Base Case
+        if (n == 1) {
+            System.out.println("Move Disk 1 from " + source + " to " + destination);
+            return;
+        }
+
+        // Step 1: Move n-1 disks from source to auxiliary
+        solve(n - 1, source, destination, auxiliary);
+
+        // Step 2: Move nth disk from source to destination
+        System.out.println("Move Disk " + n + " from " + source + " to " + destination);
+
+        // Step 3: Move n-1 disks from auxiliary to destination
+        solve(n - 1, auxiliary, source, destination);
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of disks: ");
+        int n = sc.nextInt();
+
+        System.out.println("\nSteps to solve Tower of Hanoi:");
+
+        solve(n, 'A', 'B', 'C');
+
+        int totalMoves = (int) Math.pow(2, n) - 1;
+        System.out.println("\nTotal Moves = " + totalMoves);
+
+        sc.close();
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//Q-  Next Greater Element using Stack
+
+Sol - import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        int[] nge = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        Stack<Integer> st = new Stack<>();
+
+        for (int i = n - 1; i >= 0; i--) {
+
+            while (!st.isEmpty() && st.peek() <= arr[i]) {
+                st.pop();
+            }
+
+            if (st.isEmpty()) {
+                nge[i] = -1;
+            } else {
+                nge[i] = st.peek();
+            }
+
+            st.push(arr[i]);
+        }
+
+        for (int i = 0; i < n; i++) {
+            System.out.print(nge[i] + " ");
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Q- Merge Sort
+
+Sol - import java.util.*;
+
+public class Main {
+
+    static void merge(int arr[], int low, int mid, int high) {
+
+        int[] temp = new int[high - low + 1];
+
+        int i = low;
+        int j = mid + 1;
+        int k = 0;
+
+        while (i <= mid && j <= high) {
+            if (arr[i] <= arr[j]) {
+                temp[k++] = arr[i++];
+            } else {
+                temp[k++] = arr[j++];
+            }
+        }
+
+        while (i <= mid) {
+            temp[k++] = arr[i++];
+        }
+
+        while (j <= high) {
+            temp[k++] = arr[j++];
+        }
+
+        for (i = low, k = 0; i <= high; i++, k++) {
+            arr[i] = temp[k];
+        }
+    }
+
+    static void mergeSort(int arr[], int low, int high) {
+
+        if (low < high) {
+
+            int mid = (low + high) / 2;
+
+            mergeSort(arr, low, mid);
+
+            mergeSort(arr, mid + 1, high);
+
+            merge(arr, low, mid, high);
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        mergeSort(arr, 0, n - 1);
+
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//Q- Detect Loop in Linked List (Floyd's Algorithm)
+
+Sol - import java.util.*;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class Main {
+
+    static boolean detectLoop(Node head) {
+
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        Node head = null;
+        Node tail = null;
+
+        Node[] nodes = new Node[n];
+
+        for (int i = 0; i < n; i++) {
+
+            Node newNode = new Node(sc.nextInt());
+            nodes[i] = newNode;
+
+            if (head == null) {
+                head = tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
+        }
+
+        int pos = sc.nextInt();
+
+        if (pos != -1) {
+            tail.next = nodes[pos - 1];
+        }
+
+        if (detectLoop(head))
+            System.out.println("Loop Found");
+        else
+            System.out.println("No Loop");
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Q- Kadane's Algorithm — Max Subarray Sum
+
+Sol -    import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        // Read size of array
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+
+        // Read array elements
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        // Initialize current sum and maximum sum
+        int currSum = arr[0];
+        int maxSum = arr[0];
+
+        // Traverse the array from second element
+        for (int i = 1; i < n; i++) {
+
+            // Either start a new subarray from current element
+            // or extend the previous subarray
+            currSum = Math.max(arr[i], currSum + arr[i]);
+
+            // Update maximum sum found so far
+            maxSum = Math.max(maxSum, currSum);
+        }
+
+        // Print maximum subarray sum
+        System.out.println(maxSum);
+
+        sc.close();
+    }
+}
+
+
+
+
 
 
 //VVVVVVVVVVVVVVVVV VVVVVVVVVVVVVVVVV
